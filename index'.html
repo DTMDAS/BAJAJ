@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAJAJ Membership Demo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101827;color:white;font-family:Arial,sans-serif}
+header{background:#18263c;padding:22px;text-align:center;border-bottom:2px solid #d6a642}
+h1{color:#e9bd55;margin:0}
+main{max-width:600px;margin:20px auto;padding:15px}
+.card{background:#1c2b43;padding:18px;border-radius:12px;margin:15px 0}
+input,button{width:100%;padding:13px;margin:7px 0;border-radius:7px;border:0;font-size:16px}
+input{background:#f2f2f2}
+button{background:#d9aa45;color:#172033;font-weight:bold;cursor:pointer}
+.plan{border:1px solid #d9aa45;padding:12px;border-radius:8px;margin:10px 0}
+.small{color:#c5cbd5;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>BAJAJ</h1>
+<p>Membership Demo Website</p>
+</header>
+<main>
+<div class="card">
+<h2>Register / Login</h2>
+<input id="name" placeholder="Apna naam">
+<input id="phone" placeholder="Mobile number">
+<input id="password" type="password" placeholder="Password">
+<button onclick="register()">Register / Login</button>
+<p id="message"></p>
+</div>
+
+<div class="card">
+<h2>Virtual Wallet</h2>
+<h3>Balance: ₹<span id="balance">0</span></h3>
+<input id="amount" type="number" placeholder="Amount">
+<button onclick="addMoney()">Demo Balance Add Karein</button>
+<p class="small">Yeh sirf demo balance hai, asli paisa nahi.</p>
+</div>
+
+<div class="card">
+<h2>Membership Plans</h2>
+<div id="plans"></div>
+</div>
+
+<div class="card">
+<h2>Referral</h2>
+<p>Aapka Demo Referral Code:</p>
+<h3 id="refcode">BAJAJ-DEMO</h3>
+</div>
+
+<div class="card">
+<h2>Admin Demo</h2>
+<input id="adminpass" type="password" placeholder="Demo password">
+<button onclick="admin()">Admin Login</button>
+<p id="adminmessage"></p>
+</div>
+</main>
+
+<script>
+let balance=Number(localStorage.getItem("bajajBalance")||0);
+
+function showBalance(){
+ document.getElementById("balance").textContent=balance;
+}
+function register(){
+ let n=document.getElementById("name").value.trim();
+ let p=document.getElementById("phone").value.trim();
+ let pass=document.getElementById("password").value;
+ if(!n||!p||!pass){
+  document.getElementById("message").textContent="Sabhi details bharein.";
+  return;
+ }
+ localStorage.setItem("bajajName",n);
+ document.getElementById("message").textContent="Demo account ready: "+n;
+ document.getElementById("refcode").textContent="BJ"+p.slice(-4);
+}
+function addMoney(){
+ let a=Number(document.getElementById("amount").value);
+ if(a<1||!Number.isFinite(a)){
+  alert("Sahi amount likhein");
+  return;
+ }
+ balance+=a;
+ localStorage.setItem("bajajBalance",balance);
+ showBalance();
+}
+let plans=[
+ ["Discover 125",2250],
+ ["Pulsar 150",3500],
+ ["Platina 110",5000],
+ ["Pulsar NS200",7500],
+ ["Dominar 400",10000]
+];
+document.getElementById("plans").innerHTML=plans.map((p,i)=>
+ `<div class="plan"><b>${p[0]}</b><p>Demo price: ₹${p[1]}</p><button onclick="buy(${i})">Select Demo Plan</button></div>`
+).join("");
+function buy(i){
+ alert(plans[i][0]+" demo plan selected. Koi real payment nahi hua.");
+}
+function admin(){
+ let p=document.getElementById("adminpass").value;
+ document.getElementById("adminmessage").textContent=
+ p==="demo123"?"Demo Admin Login Successful":"Password galat hai. Demo password: demo123";
+}
+showBalance();
+</script>
+</body>
+</html>
