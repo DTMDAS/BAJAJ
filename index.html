@@ -646,4 +646,34 @@
     function switchTab(tabName, btn) {
         document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-        document.getElementById('tab-' + tabName
+        document.getElementById('tab-' + tabName).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function switchAdminTab(secId, btn) {
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(secId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function openAdminPrompt() {
+        const pin = prompt("Enter Admin PIN (84709):");
+        if (pin === "84709") {
+            renderAllPlans();
+            document.getElementById('admin-modal').style.display = 'flex';
+        } else if (pin !== null) {
+            alert("Incorrect PIN!");
+        }
+    }
+
+    function closeAdmin() {
+        document.getElementById('admin-modal').style.display = 'none';
+    }
+
+    renderAllPlans();
+    updateUserUI();
+</script>
+
+</body>
+</html>
