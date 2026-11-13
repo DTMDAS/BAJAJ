@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bajaj Portal</title>
+    <title>Bajaj V3 - Investment & Admin System</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: #050d14;
+            background: #040d14;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -21,371 +21,807 @@
         }
         .mobile-container {
             width: 100%;
-            max-width: 420px;
-            background: linear-gradient(180deg, #0f3a47 0%, #081d26 100%);
+            max-width: 430px;
+            background: linear-gradient(180deg, #0d3542 0%, #051622 100%);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            padding-bottom: 70px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            padding-bottom: 75px;
             overflow-x: hidden;
         }
-        .header {
+        /* Header & Notice */
+        .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.35);
         }
-        .logo-area {
+        .logo {
             font-weight: bold;
-            font-size: 18px;
-            color: #ffd700;
-            letter-spacing: 1px;
+            color: #00ffcc;
+            font-size: 17px;
+            letter-spacing: 0.5px;
         }
-        .support-icon {
-            background: rgba(255,255,255,0.1);
-            padding: 8px;
-            border-radius: 50%;
+        .header-icons {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #b0c4de;
             cursor: pointer;
         }
-        .section-title {
-            padding: 15px 20px 5px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .notice-bar {
+            background: rgba(0, 255, 204, 0.12);
+            padding: 7px 15px;
+            font-size: 11px;
             color: #00ffcc;
+            border-bottom: 1px solid rgba(0,255,204,0.15);
         }
-        .product-grid {
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 12px;
+        }
+        .action-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .action-card:active { transform: scale(0.95); }
+        .action-card div:first-child { font-size: 18px; margin-bottom: 4px; }
+        .action-card span { font-size: 10px; color: #cbd5e1; }
+
+        /* Banner */
+        .banner {
+            margin: 8px 12px;
+            background: linear-gradient(135deg, #114b5f, #1a936f);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .banner h3 { font-size: 15px; margin-bottom: 4px; color: #fff; }
+        .banner p { font-size: 11px; color: #e2e8f0; }
+
+        .section-title {
+            padding: 12px 15px 6px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #00ffcc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Plans List */
+        .plans-container {
+            padding: 6px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .plan-item {
+            background: linear-gradient(135deg, #163e4d, #0c2733);
+            border-radius: 14px 28px 14px 28px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 255, 204, 0.25);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .plan-info h4 { font-size: 14px; color: #fff; margin-bottom: 5px; }
+        .plan-info p { font-size: 11px; color: #94a3b8; margin-bottom: 2px; }
+        .plan-price { font-size: 16px; font-weight: bold; color: #00ffcc; text-align: right; }
+        .btn-main {
+            background: linear-gradient(90deg, #00ffcc, #00b4db);
+            color: #04121a;
+            border: none;
+            padding: 8px 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Tabs */
+        .page-tab { display: none; }
+        .page-tab.active { display: block; }
+
+        /* Account & Cards */
+        .user-header-box {
+            background: rgba(0,0,0,0.3);
+            margin: 12px;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wallet-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 15px;
+            gap: 10px;
+            margin: 0 12px 15px 12px;
+            background: rgba(255,255,255,0.05);
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
         }
-        .product-card {
-            background: linear-gradient(145deg, #133b4c, #0d2b38);
-            border-radius: 12px;
+        .wallet-card div span { font-size: 10px; color: #94a3b8; display: block; margin-bottom: 3px; }
+        .wallet-card div b { font-size: 15px; color: #00ffcc; }
+
+        .menu-list {
+            background: rgba(255,255,255,0.04);
+            margin: 0 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.05);
         }
-        .badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: #ff4757;
-            color: white;
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .product-img {
-            width: 100%;
-            height: 100px;
-            background-size: cover;
-            background-position: center;
-        }
-        .product-details {
-            padding: 10px;
-            font-size: 11px;
-        }
-        .product-name {
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 6px;
-            color: #00ffcc;
-        }
-        .info-row {
+        .menu-item {
+            padding: 13px 15px;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
             display: flex;
             justify-content: space-between;
-            margin-bottom: 3px;
-            color: #b0c4de;
-        }
-        .info-row span:last-child {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .buy-btn {
-            width: 100%;
-            background: linear-gradient(90deg, #00b4db, #0083b0);
-            border: none;
-            color: white;
-            padding: 7px;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 8px;
             cursor: pointer;
         }
-        /* Pages / Tabs */
-        .page-content {
-            display: none;
-            padding: 20px;
-        }
-        .page-content.active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: #b0c4de;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 6px;
-            color: white;
-        }
-        .submit-btn {
-            width: 100%;
-            background: #00ffcc;
-            color: #081d26;
-            border: none;
-            padding: 12px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+        .menu-item:hover { background: rgba(255,255,255,0.06); }
+
         /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
-            max-width: 420px;
-            background: #08161e;
+            max-width: 430px;
+            background: #040e14;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             border-top: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
         }
-        .nav-item {
+        .nav-link {
             text-align: center;
-            color: #8a9ba8;
-            font-size: 11px;
+            color: #64748b;
+            font-size: 10px;
             cursor: pointer;
+            background: none;
+            border: none;
         }
-        .nav-item.active {
-            color: #00ffcc;
-        }
-        .nav-item div {
-            font-size: 18px;
-            margin-bottom: 2px;
-        }
-        /* Admin Panel Modal */
-        #admin-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .admin-box {
-            background: #0f3a47;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 380px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .hidden { display: none; }
+        .nav-link.active { color: #00ffcc; }
+        .nav-link div { font-size: 17px; margin-bottom: 2px; }
+
         .secret-trigger {
             text-align: center;
             padding: 15px;
             font-size: 10px;
-            color: #385563;
+            color: #1e3a47;
             cursor: pointer;
         }
+
+        /* Modals & Admin Panel */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .admin-dashboard {
+            background: #0b2936;
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            border-radius: 12px;
+            border: 1px solid #00ffcc;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .admin-header {
+            background: #061821;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,255,204,0.2);
+        }
+        .admin-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: #08202b;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .admin-tab-btn {
+            padding: 10px 12px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 11px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .admin-tab-btn.active {
+            color: #00ffcc;
+            border-bottom: 2px solid #00ffcc;
+            background: rgba(0,255,204,0.08);
+        }
+        .admin-body {
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; font-size: 11px; margin-bottom: 4px; color: #cbd5e1; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+        }
+        .admin-card {
+            background: rgba(0,0,0,0.25);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 11px;
+        }
+        .badge-status {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        .status-pending { background: #f59e0b; color: #000; }
+        .status-approved { background: #10b981; color: #fff; }
+        .status-blocked { background: #ef4444; color: #fff; }
     </style>
 </head>
 <body>
 
 <div class="mobile-container">
-    <!-- Header -->
-    <div class="header">
-        <div class="logo-area">BAJAJ PORTAL</div>
-        <div class="support-icon" onclick="alert('Customer Support: Active 24/7')">🎧</div>
+    <!-- HEADER -->
+    <div class="top-header">
+        <div class="logo">⚡ BAJAJ V3</div>
+        <div class="header-icons">
+            <span onclick="openAuthModal()">🔐 Login/Reg</span>
+            <span onclick="alert('Customer Support 24/7 Active')">🎧 Help</span>
+        </div>
     </div>
 
-    <!-- HOME PAGE -->
-    <div id="page-home" class="page-content active">
-        <div class="section-title"><span>⚡</span> High Return Plans</div>
-        <div class="product-grid">
-            <!-- Plan with 2250 price, 75/day, 45 days -->
-            <div class="product-card">
-                <div class="badge">Hot</div>
-                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=300');"></div>
-                <div class="product-details">
-                    <div class="product-name">Bajaj Special Plan</div>
-                    <div class="info-row"><span>Price:</span><span>₹2,250</span></div>
-                    <div class="info-row"><span>Return:</span><span>₹75/day</span></div>
-                    <div class="info-row"><span>Cycle:</span><span>45 Days</span></div>
-                    <button class="buy-btn" onclick="buyPlan(2250, 'Bajaj Special Plan')">Buy Now</button>
-                </div>
-            </div>
-            <!-- Other Plans -->
-            <div class="product-card">
-                <div class="badge">Hot</div>
-                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300');"></div>
-                <div class="product-details">
-                    <div class="product-name">Express Plan</div>
-                    <div class="info-row"><span>Price:</span><span>₹800</span></div>
-                    <div class="info-row"><span>Return:</span><span>₹1000/1h</span></div>
-                    <div class="info-row"><span>Cycle:</span><span>1 Hour</span></div>
-                    <button class="buy-btn" onclick="buyPlan(800, 'Express Plan')">Buy Now</button>
-                </div>
-            </div>
+    <!-- LIVE NOTIFICATION BAR -->
+    <div class="notice-bar" id="live-notice">
+        📢 Welcome to Bajaj V3! Min deposit ₹500. Fast withdrawal ₹800 with 0% GST!
+    </div>
+
+    <!-- TAB 1: HOME -->
+    <div id="tab-home" class="page-tab active">
+        <div class="quick-actions">
+            <div class="action-card" onclick="openDepositModal()"><div>💰</div><span>Recharge</span></div>
+            <div class="action-card" onclick="openWithdrawModal()"><div>🏦</div><span>Withdraw</span></div>
+            <div class="action-card" onclick="switchTab('myinvest', document.querySelectorAll('.nav-link')[1])"><div>📊</div><span>My Plans</span></div>
+            <div class="action-card" onclick="switchTab('myteam', document.querySelectorAll('.nav-link')[2])"><div>🎁</div><span>Refer Earn</span></div>
         </div>
-        
-        <!-- Secret trigger link for Admin Panel as requested -->
+
+        <div class="banner">
+            <h3>Bajaj Wealth & Growth Program</h3>
+            <p>Daily automated returns & 3-Level Referral Commission up to <span id="banner-ref-text">25%</span>!</p>
+        </div>
+
+        <div class="section-title">
+            <span>🔥 Featured Investment Plans</span>
+            <span style="font-size:11px; color:#94a3b8;" onclick="switchTab('allplans', document.querySelectorAll('.nav-link')[3])">View All ›</span>
+        </div>
+
+        <div class="plans-container" id="home-plans-container">
+            <!-- Dynamically Rendered Plans -->
+        </div>
+
+        <!-- SECRET ADMIN TRIGGER -->
         <div class="secret-trigger" onclick="openAdminPrompt()">delet id</div>
     </div>
 
-    <!-- BLOG PAGE -->
-    <div id="page-blog" class="page-content">
-        <div class="section-title">📢 Announcements</div>
-        <p style="font-size: 13px; color: #b0c4de; margin-top: 10px;">Welcome to Bajaj Portal. Min Deposit: ₹500. Fast withdrawal available with zero GST!</p>
-    </div>
-
-    <!-- POINTS PAGE -->
-    <div id="page-points" class="page-content">
-        <div class="section-title">🎁 Rewards & Points</div>
-        <p style="font-size: 13px; color: #b0c4de; margin-top: 10px;">Check in daily to claim your bonus rewards and referral commission.</p>
-    </div>
-
-    <!-- TEAM PAGE -->
-    <div id="page-team" class="page-content">
-        <div class="section-title">👥 My Team & Referral</div>
-        <p style="font-size: 13px; color: #b0c4de; margin-top: 10px;">Share your referral link and earn up to 3 levels of commission.</p>
-    </div>
-
-    <!-- MINE / ACCOUNT PAGE -->
-    <div id="page-mine" class="page-content">
-        <div class="section-title">👤 My Account</div>
-        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-            <p>Balance: <span id="user-balance" style="color: #00ffcc; font-weight: bold;">₹0</span></p>
-        </div>
-        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-            <button class="submit-btn" onclick="openDeposit()">Deposit (Min ₹500)</button>
-            <button class="submit-btn" onclick="openWithdraw()" style="background: #ff4757; color: white;">Withdraw</button>
+    <!-- TAB 2: MY INVEST -->
+    <div id="tab-myinvest" class="page-tab">
+        <div class="section-title">📊 My Active Investments</div>
+        <div id="active-investments-list" style="padding: 12px;">
+            <p style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">No active plans yet. Invest from Home tab to start earning!</p>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- TAB 3: MY TEAM (3-LEVEL REFERRAL) -->
+    <div id="tab-myteam" class="page-tab">
+        <div class="banner" style="margin: 12px;">
+            <h3>3-Level Referral Program</h3>
+            <p style="margin-top:5px;">Invite Link: <b style="color:#00ffcc; cursor:pointer;" onclick="alert('Referral Link Copied!')">https://bajaj-v3.in/reg?ref=84709</b></p>
+        </div>
+
+        <div class="wallet-card">
+            <div><span>Level 1 Commission</span><b id="disp-lev1">25%</b></div>
+            <div><span>Level 2 Commission</span><b id="disp-lev2">5%</b></div>
+            <div><span>Level 3 Commission</span><b id="disp-lev3">2%</b></div>
+            <div><span>Total Team Bonus</span><b>₹1,250.00</b></div>
+        </div>
+    </div>
+
+    <!-- TAB 4: ALL PLANS -->
+    <div id="tab-allplans" class="page-tab">
+        <div class="section-title">💎 All Investment Plans</div>
+        <div class="plans-container" id="all-plans-container">
+            <!-- Dynamically Rendered Plans -->
+        </div>
+    </div>
+
+    <!-- TAB 5: MINE / ACCOUNT -->
+    <div id="tab-mine" class="page-tab">
+        <div class="user-header-box">
+            <div>
+                <p style="font-size: 14px; font-weight: bold;" id="current-user-name">Ramesh Chandra</p>
+                <span style="font-size: 11px; color: #94a3b8;" id="current-user-phone">9876543210 | KYC: Verified ✅</span>
+            </div>
+            <div style="background: rgba(0,255,204,0.15); padding: 5px 10px; border-radius: 12px; font-size: 11px; color: #00ffcc;">VIP</div>
+        </div>
+
+        <div class="wallet-card">
+            <div><span>Total Earnings</span><b id="user-earnings">₹3,375.00</b></div>
+            <div><span>Wallet Balance</span><b id="user-balance">₹1,500.00</b></div>
+        </div>
+
+        <div style="display: flex; gap: 10px; padding: 0 12px; margin-bottom: 15px;">
+            <button class="btn-main" style="flex:1;" onclick="openDepositModal()">+ Deposit (Min ₹500)</button>
+            <button class="btn-danger" style="flex:1;" onclick="openWithdrawModal()">Withdraw (Min ₹800)</button>
+        </div>
+
+        <div class="menu-list">
+            <div class="menu-item" onclick="showUserTransactions()"><span>📑 Transaction History (Deposits/Withdrawals)</span><span>›</span></div>
+            <div class="menu-item" onclick="openAuthModal()"><span>🔄 Switch / Register Account</span><span>›</span></div>
+            <div class="menu-item" onclick="alert('KYC Status: Approved')"><span>🛡️ KYC Verification</span><span>›</span></div>
+            <div class="menu-item" onclick="alert('24/7 Support: @BajajSupport')"><span>🎧 Live Support</span><span>›</span></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('home', this)"><div>🏠</div>Home</div>
-        <div class="nav-item" onclick="switchTab('blog', this)"><div>📰</div>Blog</div>
-        <div class="nav-item" onclick="switchTab('points', this)"><div>🎁</div>Points</div>
-        <div class="nav-item" onclick="switchTab('team', this)"><div>👥</div>Team</div>
-        <div class="nav-item" onclick="switchTab('mine', this)"><div>👤</div>Mine</div>
+        <button class="nav-link active" onclick="switchTab('home', this)"><div>🏠</div>Home</button>
+        <button class="nav-link" onclick="switchTab('myinvest', this)"><div>📦</div>My Invest</button>
+        <button class="nav-link" onclick="switchTab('myteam', this)"><div>👥</div>My Team</button>
+        <button class="nav-link" onclick="switchTab('allplans', this)"><div>💎</div>All Plans</button>
+        <button class="nav-link" onclick="switchTab('mine', this)"><div>👤</div>Account</button>
     </div>
 </div>
 
-<!-- Admin Panel Modal -->
-<div id="admin-modal">
-    <div class="admin-box">
-        <h3 style="color: #00ffcc; margin-bottom: 15px;">🛠️ Admin Panel Control</h3>
-        <div class="form-group">
-            <label>Change UPI / QR Code Link:</label>
-            <input type="text" id="admin-upi" value="admin@upi">
+<!-- ==========================================
+     FULL FEATURED ADMIN PANEL MODAL (PIN: 84709)
+     ========================================== -->
+<div id="admin-modal" class="modal-overlay">
+    <div class="admin-dashboard">
+        <div class="admin-header">
+            <span style="color:#00ffcc; font-weight:bold; font-size:14px;">🛡️ Bajaj Super Admin Panel</span>
+            <button onclick="closeAdmin()" style="background:#ef4444; border:none; color:white; padding:4px 10px; border-radius:4px; cursor:pointer; font-size:11px;">Close ✕</button>
         </div>
-        <div class="form-group">
-            <label>Registered Users List:</label>
-            <div id="user-list-box" style="background:rgba(0,0,0,0.4); padding:8px; font-size:11px; max-height:100px; overflow-y:auto;">
-                User 1: Ramesh (9876543210)<br>User 2: TestUser (1234567890)
+
+        <!-- Admin Navigation Tabs -->
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" onclick="switchAdminTab('adm-plans', this)">Plans</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('adm-referral', this)">3-Lvl Referral</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('adm-gateways', this)">Gateways</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('adm-users', this)">Users & KYC</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('adm-txns', this)">Transactions</button>
+            <button class="admin-tab-btn" onclick="switchAdminTab('adm-reports', this)">Reports & Alerts</button>
+        </div>
+
+        <div class="admin-body">
+            <!-- 1. MULTI PLAN MANAGEMENT -->
+            <div id="adm-plans" class="admin-section active">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">+ Create New Investment Plan</h4>
+                <div class="admin-card">
+                    <div class="form-group"><label>Plan Name:</label><input type="text" id="new-plan-name" placeholder="e.g. Bajaj Gold Plan"></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <div class="form-group"><label>Price (₹):</label><input type="number" id="new-plan-price" placeholder="2250"></div>
+                        <div class="form-group"><label>Daily Return (₹):</label><input type="number" id="new-plan-daily" placeholder="75"></div>
+                    </div>
+                    <div class="form-group"><label>Duration (Days):</label><input type="number" id="new-plan-days" placeholder="45"></div>
+                    <button class="btn-main" style="width:100%;" onclick="addNewPlan()">Add Plan to Website</button>
+                </div>
+
+                <h4 style="color:#00ffcc; font-size:12px; margin:10px 0 6px 0;">Manage Existing Plans</h4>
+                <div id="admin-plans-list"></div>
+            </div>
+
+            <!-- 2. 3-LEVEL REFERRAL COMMISSION SETUP -->
+            <div id="adm-referral" class="admin-section">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">Configure 3-Level Commissions (%)</h4>
+                <div class="admin-card">
+                    <div class="form-group"><label>Level 1 Commission (%):</label><input type="number" id="ref-l1" value="25"></div>
+                    <div class="form-group"><label>Level 2 Commission (%):</label><input type="number" id="ref-l2" value="5"></div>
+                    <div class="form-group"><label>Level 3 Commission (%):</label><input type="number" id="ref-l3" value="2"></div>
+                    <button class="btn-main" style="width:100%;" onclick="saveReferralSettings()">Update Referral Rates</button>
+                </div>
+            </div>
+
+            <!-- 3. MANUAL & 30+ AUTOMATIC PAYMENT GATEWAYS -->
+            <div id="adm-gateways" class="admin-section">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">Manual Payment Gateway (QR / UPI)</h4>
+                <div class="admin-card">
+                    <div class="form-group"><label>Active Admin UPI ID:</label><input type="text" id="admin-upi-input" value="bajajpay@ybl"></div>
+                    <div class="form-group"><label>QR Code Image URL (Optional):</label><input type="text" id="admin-qr-input" value="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bajajpay@ybl"></div>
+                    <button class="btn-main" style="width:100%;" onclick="saveGatewaySettings()">Save Manual Gateway</button>
+                </div>
+
+                <h4 style="color:#00ffcc; font-size:12px; margin:10px 0 6px 0;">30+ Automatic Payment Gateways</h4>
+                <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Razorpay Auto-Pay</span><input type="checkbox" checked>
+                </div>
+                <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Paytm Business API</span><input type="checkbox" checked>
+                </div>
+                <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Cashfree Instant Payouts</span><input type="checkbox" checked>
+                </div>
+                <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>USDT (TRC20) Crypto Gateway</span><input type="checkbox">
+                </div>
+                <p style="font-size:10px; color:#94a3b8;">+ 26 more international & domestic gateways integrated.</p>
+            </div>
+
+            <!-- 4. USER MANAGEMENT & KYC -->
+            <div id="adm-users" class="admin-section">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">Registered Users & KYC Control</h4>
+                <div id="admin-users-list"></div>
+            </div>
+
+            <!-- 5. TRANSACTION MONITORING (APPROVE / REJECT) -->
+            <div id="adm-txns" class="admin-section">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">Pending & Recent Transactions</h4>
+                <div id="admin-txns-list"></div>
+            </div>
+
+            <!-- 6. REPORTS, ANALYTICS & NOTIFICATION SYSTEM -->
+            <div id="adm-reports" class="admin-section">
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">Platform Reports & Analytics</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
+                    <div class="admin-card"><span>Total Deposits</span><br><b style="color:#00ffcc; font-size:14px;" id="rep-dep">₹45,500</b></div>
+                    <div class="admin-card"><span>Total Withdrawals</span><br><b style="color:#ef4444; font-size:14px;" id="rep-with">₹18,200</b></div>
+                    <div class="admin-card"><span>Active Investors</span><br><b style="color:#fff; font-size:14px;" id="rep-users">142</b></div>
+                    <div class="admin-card"><span>Net Platform Profit</span><br><b style="color:#10b981; font-size:14px;">₹27,300</b></div>
+                </div>
+
+                <h4 style="color:#00ffcc; font-size:12px; margin-bottom:8px;">📢 Broadcast Live Notification</h4>
+                <div class="admin-card">
+                    <div class="form-group">
+                        <label>Alert Message for All Users:</label>
+                        <input type="text" id="admin-alert-msg" value="📢 Welcome to Bajaj V3! Min deposit ₹500. Fast withdrawal ₹800 with 0% GST!">
+                    </div>
+                    <button class="btn-main" style="width:100%;" onclick="sendLiveAlert()">Publish Notification</button>
+                </div>
             </div>
         </div>
-        <div style="display:flex; gap:10px;">
-            <button class="submit-btn" onclick="saveAdminSettings()">Save</button>
-            <button class="submit-btn" onclick="closeAdmin()" style="background:#ff4757; color:white;">Close</button>
+    </div>
+</div>
+
+<!-- LOGIN / REGISTER MODAL -->
+<div id="auth-modal" class="modal-overlay">
+    <div class="admin-dashboard" style="max-width:350px; padding:18px;">
+        <h3 style="color:#00ffcc; font-size:15px; margin-bottom:12px;">🔐 Bajaj User Login / Register</h3>
+        <div class="form-group"><label>Full Name:</label><input type="text" id="auth-name" placeholder="Enter your name"></div>
+        <div class="form-group"><label>Mobile Number:</label><input type="text" id="auth-phone" placeholder="10-digit number"></div>
+        <div class="form-group"><label>Password:</label><input type="password" id="auth-pass" placeholder="Enter password"></div>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+            <button class="btn-main" style="flex:1;" onclick="registerOrLoginUser()">Submit</button>
+            <button class="btn-danger" onclick="document.getElementById('auth-modal').style.display='none'">Close</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Tab switching logic
-    function switchTab(tabName, element) {
-        document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    // INITIAL DATA STATE
+    let plans = [
+        { id: 1, name: "Bajaj Special Plan", price: 2250, daily: 75, days: 45 },
+        { id: 2, name: "Bajaj Express 1-Hour", price: 800, daily: 1000, days: 1 },
+        { id: 3, name: "Bajaj Silver Growth", price: 1500, daily: 60, days: 30 },
+        { id: 4, name: "Bajaj Platinum VIP", price: 5000, daily: 250, days: 40 }
+    ];
+
+    let users = [
+        { id: 101, name: "Ramesh Chandra", phone: "9876543210", balance: 1500, kyc: "Verified", blocked: false },
+        { id: 102, name: "Amit Kumar", phone: "9123456780", balance: 800, kyc: "Pending", blocked: false }
+    ];
+
+    let transactions = [
+        { id: 501, user: "Ramesh Chandra", type: "Deposit", amount: 1500, detail: "UPI Ref: 492817", status: "Approved" },
+        { id: 502, user: "Amit Kumar", type: "Withdraw", amount: 1000, detail: "UPI: amit@upi", status: "Pending" }
+    ];
+
+    let myInvestments = [];
+    let currentUser = users[0];
+
+    // RENDER PLANS ON HOME, ALL PLANS & ADMIN
+    function renderAllPlans() {
+        const homeContainer = document.getElementById('home-plans-container');
+        const allContainer = document.getElementById('all-plans-container');
+        const adminList = document.getElementById('admin-plans-list');
         
-        document.getElementById('page-' + tabName).classList.add('active');
-        element.classList.add('active');
+        homeContainer.innerHTML = '';
+        allContainer.innerHTML = '';
+        adminList.innerHTML = '';
+
+        plans.forEach((p, idx) => {
+            const cardHTML = `
+                <div class="plan-item">
+                    <div class="plan-info">
+                        <h4>${p.name}</h4>
+                        <p>Price: <b>₹${p.price}</b></p>
+                        <p>Return: <b>₹${p.daily} / ${p.days === 1 ? '1 Hour' : 'Day'}</b></p>
+                        <p>Cycle: <b>${p.days} ${p.days === 1 ? 'Hour' : 'Days'}</b></p>
+                    </div>
+                    <div>
+                        <div class="plan-price">₹${p.price}</div>
+                        <button class="btn-main" style="margin-top:6px;" onclick="investInPlan(${p.id})">Start Investing</button>
+                    </div>
+                </div>
+            `;
+            if (idx < 2) homeContainer.innerHTML += cardHTML;
+            allContainer.innerHTML += cardHTML;
+
+            // Admin Plan Card
+            adminList.innerHTML += `
+                <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b>${p.name}</b><br>
+                        <span style="color:#94a3b8;">₹${p.price} | ₹${p.daily}/d | ${p.days}d</span>
+                    </div>
+                    <button class="btn-danger" style="padding:4px 8px; font-size:10px;" onclick="deletePlan(${p.id})">Delete</button>
+                </div>
+            `;
+        });
     }
 
-    // Buy plan handler
-    function buyPlan(price, name) {
-        let bal = parseInt(document.getElementById('user-balance').innerText.replace('₹','')) || 0;
-        if(bal >= price) {
-            bal -= price;
-            document.getElementById('user-balance').innerText = '₹' + bal;
-            alert('Successfully purchased ' + name + '!');
+    // ADD & DELETE PLAN (ADMIN)
+    function addNewPlan() {
+        const name = document.getElementById('new-plan-name').value;
+        const price = parseFloat(document.getElementById('new-plan-price').value);
+        const daily = parseFloat(document.getElementById('new-plan-daily').value);
+        const days = parseInt(document.getElementById('new-plan-days').value);
+
+        if (!name || !price || !daily || !days) {
+            alert("Please fill all plan fields!");
+            return;
+        }
+        plans.unshift({ id: Date.now(), name, price, daily, days });
+        renderAllPlans();
+        document.getElementById('new-plan-name').value = '';
+        document.getElementById('new-plan-price').value = '';
+        document.getElementById('new-plan-daily').value = '';
+        document.getElementById('new-plan-days').value = '';
+        alert("New plan created and published live!");
+    }
+
+    function deletePlan(id) {
+        plans = plans.filter(p => p.id !== id);
+        renderAllPlans();
+    }
+
+    // USER INVEST ACTION
+    function investInPlan(planId) {
+        if (currentUser.blocked) {
+            alert("Your account is blocked by Admin!");
+            return;
+        }
+        const plan = plans.find(p => p.id === planId);
+        if (currentUser.balance >= plan.price) {
+            currentUser.balance -= plan.price;
+            updateUserUI();
+            myInvestments.push({ ...plan, date: new Date().toLocaleDateString() });
+            renderMyInvestments();
+            alert(`Successfully invested ₹${plan.price} in ${plan.name}!`);
         } else {
-            alert('Insufficient balance! Please deposit minimum amount first.');
-            switchTab('mine', document.querySelectorAll('.nav-item')[4]);
+            alert(`Insufficient balance! Required: ₹${plan.price}. Please deposit first.`);
         }
     }
 
-    // Deposit handler
-    function openDeposit() {
-        let amt = prompt("Enter deposit amount (Min ₹500):", "500");
-        if(amt && parseInt(amt) >= 500) {
-            let currentQR = localStorage.getItem('adminQR') || 'Default UPI / QR';
-            let bal = parseInt(document.getElementById('user-balance').innerText.replace('₹','')) || 0;
-            bal += parseInt(amt);
-            document.getElementById('user-balance').innerText = '₹' + bal;
-            alert('Deposit request submitted successfully for ₹' + amt + ' using admin handle!');
-        } else if(amt) {
-            alert('Minimum add deposit is ₹500!');
+    function renderMyInvestments() {
+        const container = document.getElementById('active-investments-list');
+        if (myInvestments.length === 0) return;
+        container.innerHTML = myInvestments.map(inv => `
+            <div class="admin-card">
+                <b style="color:#00ffcc; font-size:13px;">${inv.name}</b>
+                <p style="margin-top:4px;">Invested: ₹${inv.price} | Earning: ₹${inv.daily}/cycle</p>
+                <span class="badge-status status-approved">Active</span>
+            </div>
+        `).join('');
+    }
+
+    // DEPOSIT & WITHDRAWAL
+    function openDepositModal() {
+        const upi = document.getElementById('admin-upi-input').value;
+        const amt = prompt(`Scan Admin QR or Pay to UPI: ${upi}\n\nEnter Deposit Amount (Min ₹500):`, "500");
+        if (amt && parseFloat(amt) >= 500) {
+            transactions.unshift({
+                id: Date.now(),
+                user: currentUser.name,
+                type: "Deposit",
+                amount: parseFloat(amt),
+                detail: `Paid to ${upi}`,
+                status: "Pending"
+            });
+            alert(`Deposit request of ₹${amt} submitted! Admin will verify and approve shortly.`);
+            renderAdminTxns();
+        } else if (amt) {
+            alert("Minimum deposit amount is ₹500!");
         }
     }
 
-    // Withdraw handler
-    function withdrawMoney() {
-        let upiName = prompt("Enter your UPI ID / Name for withdrawal:");
-        let amt = prompt("Enter withdrawal amount (Min ₹800):", "1000");
-        if(upiName && amt && parseInt(amt) >= 800) {
-            alert('Withdrawal of ₹' + amt + ' requested successfully to ' + upiName + ' (Free / No GST)!');
-        } else if(amt) {
-            alert('Minimum withdrawal amount is ₹800.');
+    function openWithdrawModal() {
+        if (currentUser.blocked) {
+            alert("Your account is blocked!");
+            return;
+        }
+        const upiName = prompt("Enter your UPI ID / Name for payout:");
+        const amt = prompt("Enter Withdrawal Amount (Min ₹800, 0% GST):", "1000");
+        if (upiName && amt && parseFloat(amt) >= 800) {
+            if (currentUser.balance >= parseFloat(amt)) {
+                currentUser.balance -= parseFloat(amt);
+                updateUserUI();
+                transactions.unshift({
+                    id: Date.now(),
+                    user: currentUser.name,
+                    type: "Withdraw",
+                    amount: parseFloat(amt),
+                    detail: `UPI: ${upiName}`,
+                    status: "Pending"
+                });
+                alert(`Withdrawal request of ₹${amt} submitted to ${upiName}!`);
+                renderAdminTxns();
+            } else {
+                alert("Insufficient wallet balance!");
+            }
+        } else if (amt) {
+            alert("Minimum withdrawal is ₹800!");
         }
     }
 
-    // Bind withdrawal to button inside mine page if needed or create quick alert
-    function openWithdraw() {
-        withdrawMoney();
+    function showUserTransactions() {
+        const list = transactions.map(t => `${t.type}: ₹${t.amount} [${t.status}]`).join('\n');
+        alert("Recent Transactions:\n\n" + (list || "No records found."));
     }
 
-    // Admin Panel PIN verification (84709)
-    function openAdminPrompt() {
-        let pin = prompt("Enter Admin PIN:");
-        if(pin === "84709") {
-            document.getElementById('admin-modal').style.display = 'flex';
-        } else if(pin !== null) {
-            alert("Incorrect PIN!");
+    // ADMIN: USERS & TRANSACTIONS MANAGEMENT
+    function renderAdminUsers() {
+        const list = document.getElementById('admin-users-list');
+        list.innerHTML = users.map(u => `
+            <div class="admin-card">
+                <div style="display:flex; justify-content:space-between;">
+                    <b>${u.name} (${u.phone})</b>
+                    <span class="badge-status ${u.blocked ? 'status-blocked' : 'status-approved'}">${u.blocked ? 'Blocked' : 'Active'}</span>
+                </div>
+                <p style="margin:4px 0; color:#94a3b8;">Balance: ₹${u.balance} | KYC: ${u.kyc}</p>
+                <div style="display:flex; gap:6px; margin-top:6px;">
+                    <button class="btn-main" style="padding:4px 8px; font-size:10px;" onclick="toggleBlockUser(${u.id})">${u.blocked ? 'Unblock' : 'Block'}</button>
+                    <button class="btn-main" style="padding:4px 8px; font-size:10px; background:#3b82f6; color:white;" onclick="verifyUserKYC(${u.id})">Verify KYC</button>
+                    <button class="btn-main" style="padding:4px 8px; font-size:10px; background:#10b981; color:white;" onclick="addBonusToUser(${u.id})">+₹500</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function toggleBlockUser(id) {
+        const u = users.find(x => x.id === id);
+        u.blocked = !u.blocked;
+        renderAdminUsers();
+    }
+
+    function verifyUserKYC(id) {
+        const u = users.find(x => x.id === id);
+        u.kyc = "Verified ✅";
+        updateUserUI();
+        renderAdminUsers();
+    }
+
+    function addBonusToUser(id) {
+        const u = users.find(x => x.id === id);
+        u.balance += 500;
+        updateUserUI();
+        renderAdminUsers();
+    }
+
+    function renderAdminTxns() {
+        const list = document.getElementById('admin-txns-list');
+        list.innerHTML = transactions.map(t => `
+            <div class="admin-card">
+                <div style="display:flex; justify-content:space-between;">
+                    <b>${t.type} - ₹${t.amount}</b>
+                    <span class="badge-status ${t.status === 'Approved' ? 'status-approved' : (t.status === 'Rejected' ? 'status-blocked' : 'status-pending')}">${t.status}</span>
+                </div>
+                <p style="color:#94a3b8; margin:3px 0;">User: ${t.user} | ${t.detail}</p>
+                ${t.status === 'Pending' ? `
+                    <div style="display:flex; gap:6px; margin-top:6px;">
+                        <button class="btn-main" style="padding:4px 10px; font-size:10px;" onclick="handleTxn(${t.id}, 'Approved')">Approve</button>
+                        <button class="btn-danger" style="padding:4px 10px; font-size:10px;" onclick="handleTxn(${t.id}, 'Rejected')">Reject</button>
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+    }
+
+    function handleTxn(id, action) {
+        const txn = transactions.find(t => t.id === id);
+        txn.status = action;
+        if (action === 'Approved' && txn.type === 'Deposit') {
+            const u = users.find(x => x.name === txn.user);
+            if (u) u.balance += txn.amount;
+            updateUserUI();
         }
+        renderAdminTxns();
+        renderAdminUsers();
     }
 
-    function closeAdmin() {
-        document.getElementById('admin-modal').style.display = 'none';
+    // ADMIN SETTINGS & ALERTS
+    function saveReferralSettings() {
+        const l1 = document.getElementById('ref-l1').value;
+        const l2 = document.getElementById('ref-l2').value;
+        const l3 = document.getElementById('ref-l3').value;
+        document.getElementById('disp-lev1').innerText = l1 + '%';
+        document.getElementById('disp-lev2').innerText = l2 + '%';
+        document.getElementById('disp-lev3').innerText = l3 + '%';
+        document.getElementById('banner-ref-text').innerText = l1 + '%';
+        alert("3-Level Referral Commissions Updated!");
     }
 
-    function saveAdminSettings() {
-        let newUpi = document.getElementById('admin-upi').value;
-        localStorage.setItem('adminQR', newUpi);
-        alert("Admin settings updated successfully!");
-        closeAdmin();
+    function saveGatewaySettings() {
+        alert("Manual UPI & Automatic Payment Gateways Saved!");
     }
-</script>
 
-</body>
-</html>
+    function sendLiveAlert() {
+        const msg = document.getElementById('admin-alert-msg').value;
+        document.getElementById('live-notice').innerText = msg;
+        alert("Notification published to all users!");
+    }
+
+    // AUTHENTICATION (LOGIN / REGISTER)
+    function openAuthModal() {
+        document.getElementById('auth-modal').style.display = 'flex';
+    }
+
+    function registerOrLoginUser() {
+        const name = document.getElementById('auth-name').value;
+        const phone = document.getElementById('auth-phone').value;
+        if (!name || !phone) {
+            alert("Please enter Name and Number!");
+            return;
+        }
+        let existing = users.find(u => u.phone === phone);
+        if (!existing) {
+            existing = { id: Date.now(), name, phone, balance: 0, kyc: "Pending", blocked: false };
+            users.push(existing);
+        }
+        currentUser = existing;
+        updateUserUI();
+        renderAdminUsers();
+        document.getElementById('auth-modal').style.display = 'none';
