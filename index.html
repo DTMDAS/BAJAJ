@@ -1,113 +1,260 @@
-
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BAJAJ Membership Demo</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#101827;color:white;font-family:Arial,sans-serif}
-header{background:#18263c;padding:22px;text-align:center;border-bottom:2px solid #d6a642}
-h1{color:#e9bd55;margin:0}
-main{max-width:600px;margin:20px auto;padding:15px}
-.card{background:#1c2b43;padding:18px;border-radius:12px;margin:15px 0}
-input,button{width:100%;padding:13px;margin:7px 0;border-radius:7px;border:0;font-size:16px}
-input{background:#f2f2f2}
-button{background:#d9aa45;color:#172033;font-weight:bold;cursor:pointer}
-.plan{border:1px solid #d9aa45;padding:12px;border-radius:8px;margin:10px 0}
-.small{color:#c5cbd5;font-size:13px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bajaj Portal - 3D UI Preview</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0b1c2d, #0f384c);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+        .mobile-container {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(180deg, #0f3a47 0%, #081d26 100%);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            overflow-x: hidden;
+        }
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .logo-area {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffd700;
+            letter-spacing: 1px;
+        }
+        .support-icon {
+            background: rgba(255,255,255,0.1);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Section Title */
+        .section-title {
+            padding: 15px 20px 5px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title span {
+            color: #00ffcc;
+        }
+
+        /* 3D Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+        }
+        .product-card {
+            background: linear-gradient(145deg, #133b4c, #0d2b38);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,255,204,0.2);
+        }
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff4757;
+            color: white;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .product-img {
+            width: 100%;
+            height: 110px;
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+        }
+        .product-details {
+            padding: 10px;
+            font-size: 12px;
+        }
+        .product-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #00ffcc;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            color: #b0c4de;
+        }
+        .info-row span:last-child {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+            border: none;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,180,219,0.4);
+        }
+        .buy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 420px;
+            background: #08161e;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        .nav-item {
+            text-align: center;
+            color: #8a9ba8;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: #00ffcc;
+        }
+        .nav-item div {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+    </style>
 </head>
 <body>
-<header>
-<h1>BAJAJ</h1>
-<p>Membership Demo Website</p>
-</header>
-<main>
-<div class="card">
-<h2>Register / Login</h2>
-<input id="name" placeholder="Apna naam">
-<input id="phone" placeholder="Mobile number">
-<input id="password" type="password" placeholder="Password">
-<button onclick="register()">Register / Login</button>
-<p id="message"></p>
-</div>
 
-<div class="card">
-<h2>Virtual Wallet</h2>
-<h3>Balance: ₹<span id="balance">0</span></h3>
-<input id="amount" type="number" placeholder="Amount">
-<button onclick="addMoney()">Demo Balance Add Karein</button>
-<p class="small">Yeh sirf demo balance hai, asli paisa nahi.</p>
-</div>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-area">BAJAJ CORP</div>
+            <div class="support-icon">🎧</div>
+        </div>
 
-<div class="card">
-<h2>Membership Plans</h2>
-<div id="plans"></div>
-</div>
+        <!-- Title -->
+        <div class="section-title">
+            <span>⚡</span> Product Purchase
+        </div>
 
-<div class="card">
-<h2>Referral</h2>
-<p>Aapka Demo Referral Code:</p>
-<h3 id="refcode">BAJAJ-DEMO</h3>
-</div>
+        <!-- 3D Grid Items -->
+        <div class="product-grid">
+            <!-- Item 1 -->
+            <div class="product-card">
+                <div class="badge">Hot</div>
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=300');"></div>
+                <div class="product-details">
+                    <div class="product-name">Plan A</div>
+                    <div class="info-row"><span>Price:</span><span>₹2,250</span></div>
+                    <div class="info-row"><span>Return:</span><span>75/day</span></div>
+                    <div class="info-row"><span>Cycle:</span><span>45 Days</span></div>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
 
-<div class="card">
-<h2>Admin Demo</h2>
-<input id="adminpass" type="password" placeholder="Demo password">
-<button onclick="admin()">Admin Login</button>
-<p id="adminmessage"></p>
-</div>
-</main>
+            <!-- Item 2 -->
+            <div class="product-card">
+                <div class="badge">Hot</div>
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300');"></div>
+                <div class="product-details">
+                    <div class="product-name">Plan B</div>
+                    <div class="info-row"><span>Price:</span><span>₹1,000</span></div>
+                    <div class="info-row"><span>Return:</span><span>₹110/D</span></div>
+                    <div class="info-row"><span>Cycle:</span><span>7 Days</span></div>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
 
-<script>
-let balance=Number(localStorage.getItem("bajajBalance")||0);
+            <!-- Item 3 -->
+            <div class="product-card">
+                <div class="badge">Hot</div>
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=300');"></div>
+                <div class="product-details">
+                    <div class="product-name">Plan C</div>
+                    <div class="info-row"><span>Price:</span><span>₹2,000</span></div>
+                    <div class="info-row"><span>Return:</span><span>₹240/D</span></div>
+                    <div class="info-row"><span>Cycle:</span><span>7 Days</span></div>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
 
-function showBalance(){
- document.getElementById("balance").textContent=balance;
-}
-function register(){
- let n=document.getElementById("name").value.trim();
- let p=document.getElementById("phone").value.trim();
- let pass=document.getElementById("password").value;
- if(!n||!p||!pass){
-  document.getElementById("message").textContent="Sabhi details bharein.";
-  return;
- }
- localStorage.setItem("bajajName",n);
- document.getElementById("message").textContent="Demo account ready: "+n;
- document.getElementById("refcode").textContent="BJ"+p.slice(-4);
-}
-function addMoney(){
- let a=Number(document.getElementById("amount").value);
- if(a<1||!Number.isFinite(a)){
-  alert("Sahi amount likhein");
-  return;
- }
- balance+=a;
- localStorage.setItem("bajajBalance",balance);
- showBalance();
-}
-let plans=[
- ["Discover 125",2250],
- ["Pulsar 150",3500],
- ["Platina 110",5000],
- ["Pulsar NS200",7500],
- ["Dominar 400",10000]
-];
-document.getElementById("plans").innerHTML=plans.map((p,i)=>
- `<div class="plan"><b>${p[0]}</b><p>Demo price: ₹${p[1]}</p><button onclick="buy(${i})">Select Demo Plan</button></div>`
-).join("");
-function buy(i){
- alert(plans[i][0]+" demo plan selected. Koi real payment nahi hua.");
-}
-function admin(){
- let p=document.getElementById("adminpass").value;
- document.getElementById("adminmessage").textContent=
- p==="demo123"?"Demo Admin Login Successful":"Password galat hai. Demo password: demo123";
-}
-showBalance();
-</script>
+            <!-- Item 4 -->
+            <div class="product-card">
+                <div class="badge">Hot</div>
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1595974482597-4f6c4f0ab1c4?w=300');"></div>
+                <div class="product-details">
+                    <div class="product-name">Plan D</div>
+                    <div class="info-row"><span>Price:</span><span>₹4,000</span></div>
+                    <div class="info-row"><span>Return:</span><span>₹520/D</span></div>
+                    <div class="info-row"><span>Cycle:</span><span>7 Days</span></div>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <div>🏠</div>Home
+            </a>
+            <a href="#" class="nav-item">
+                <div>📰</div>Blog
+            </a>
+            <a href="#" class="nav-item">
+                <div>🎁</div>Points
+            </a>
+            <a href="#" class="nav-item">
+                <div>👥</div>Team
+            </a>
+            <a href="#" class="nav-item">
+                <div>👤</div>Mine
+            </a>
+        </div>
+    </div>
+
 </body>
 </html>
